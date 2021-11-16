@@ -51,14 +51,14 @@ def test(model, test_data_loader, args):
         depth_gt[depth_gt < args.min_depth] = args.min_depth
         depth_gt[depth_gt > args.max_depth] = args.max_depth
                     
-        colored_gt = utils.colorize(depth_gt, vmin=None, vmax=None, cmap='magma_r') # (H, W, 3)
-        colored_pred = utils.colorize(pred, vmin=None, vmax=None, cmap='magma_r') # (H, W, 3)
-        plt.imshow(colored_pred, cmap='magma_r')
+        colored_gt = utils.colorize(depth_gt, vmin=None, vmax=None, cmap='magma') # (H, W, 3)
+        colored_pred = utils.colorize(pred, vmin=None, vmax=None, cmap='magma') # (H, W, 3)
+        plt.imshow(colored_pred, cmap='magma')
         plt.axis('off')
         plt.show()
         plt.savefig(f'test_imgs/{args.exp_name}_colored_pred.jpg', bbox_inches='tight')
         plt.figure()
-        plt.imshow(colored_gt, cmap='magma_r')
+        plt.imshow(colored_gt, cmap='magma')
         plt.axis('off')
         plt.show()
         plt.savefig(f'test_imgs/{args.exp_name}_colored_gt.jpg', bbox_inches='tight')
