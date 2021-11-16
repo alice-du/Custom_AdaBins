@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 from torch.nn.utils.rnn import pad_sequence
-from pytorch3d.loss import chamfer_distance
+from chamferdist import ChamferDistance
 
 
 class BerhuLoss(nn.Module):
@@ -69,7 +69,7 @@ class BinsChamferLoss(nn.Module):  # Bin centers regularizer used in AdaBins pap
         gt_points = [p[m] for p, m in zip(gt_points, mask)]
         gt_length = torch.Tensor([len(t) for t in gt_points]).long().to(ground_truth.device)
         gt_points = pad_sequence(gt_points, batch_first=True).unsqueeze(2)  # .shape = n, T, 1
-
-        loss, _ = chamfer_distance(x=bin_center, y=gt_points, y_lengths=gt_length)
+        chamferDist = ChamferDistance()
+        loss= chamferDist(bin_center, gt_points)
         
         return loss
